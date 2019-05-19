@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VueJS Kullanarak Slider Yapımı  (Detaylı Anlatım, Demo ve Github Link)</title>
+
+    <!--VueJS'i projeye dahil ettik-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+   <ul :style="{marginTop:'-'+sliderIndex*sliderMargin+'px'}">
+       <li v-for="item in sliderData"><a :href="item.url"><img :src="item.image" :alt="item.title"></a></li>
+   </ul>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            sliderIndex:0,
+            sliderMargin:500,
+            sliderData: [
+                {title:"Slider 1.resim",image:"./img/vVC0de.jpg",url:"http://emirhanpervanlar.com"},
+                {title:"Slider 2.resim",image:"./img/wallpaper-500x500.jpg",url:"http://emirhanpervanlar.com"},
+                {title:"Slider 3.resim",image:"./img/2072092606531.jpg",url:"http://emirhanpervanlar.com"}
+                ]
+        },
+        created(){
+            this.startSlider();
+        },
+        methods:{
+            startSlider(){
+                const vue = this;
+                setInterval(function(){
+                    if(vue.sliderIndex === vue.sliderData.length-1)
+                        vue.sliderIndex = 0;
+                    else
+                        vue.sliderIndex = vue.sliderIndex + 1;
+
+                }, 5000);
+            }
+        }
+    })
+</script>
+<style>
+    #app{float:left;width:100%;margin: 50px 0;height:500px;overflow: hidden;}
+    #app ul{margin:0 auto;position: relative;width:500px;height:500px;transition: margin-top .9s;}
+    #app li{list-style:none;float:left;width:100%;height:500px;}
+    #app li img{float:left;width:100%;height:500px;}
+</style>
+</body>
+</html>
